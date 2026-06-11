@@ -145,11 +145,12 @@
     #career { padding:120px 40px 80px; border-top:1px solid var(--border); }
     .career-top { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:72px; }
     .section-head { font-size:clamp(36px,4.5vw,72px); font-weight:300; letter-spacing:-0.03em; line-height:1; }
-    .career-grid { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--border); }
-    .c-cell:last-child:nth-child(odd) { grid-column:1 / -1; }
-    .c-cell { background:var(--bg); padding:44px 0; transition:background 0.45s; }
-    .c-cell:nth-child(odd) { padding-right:48px; }
+    .career-grid { display:grid; grid-template-columns:1fr 1fr; }
+    .c-cell { padding:44px 0; transition:background 0.45s; }
+    .c-cell:nth-child(odd) { padding-right:48px; border-right:1px solid var(--border); }
     .c-cell:nth-child(even) { padding-left:48px; }
+    .c-cell:nth-child(n+3) { border-top:1px solid var(--border); }
+    .c-cell:last-child:nth-child(odd) { grid-column:1 / -1; border-right:none; padding-right:0; }
     .cell-period { font-size:12px; font-weight:400; letter-spacing:-0.005em; color:var(--muted); margin-bottom:16px; }
     .cell-role { font-size:22px; font-weight:500; letter-spacing:-0.02em; margin-bottom:4px; }
     .cell-co { font-size:13px; font-weight:400; color:var(--muted); margin-bottom:22px; }
