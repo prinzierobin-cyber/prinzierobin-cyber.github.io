@@ -34,8 +34,18 @@
       background:var(--bg); color:var(--text);
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
-      transition:background 0.45s ease, color 0.45s ease;
+      transition:background 0.45s ease, color 0.45s ease, opacity 0.35s ease;
       overflow-x:hidden; cursor:none;
+      opacity:0;
+    }
+    body.loaded { opacity:1; }
+
+    /* grain overlay */
+    body::before {
+      content:''; position:fixed; inset:0; z-index:9997; pointer-events:none;
+      opacity:0.038;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size:256px 256px;
     }
 
     /* cursor */
@@ -53,7 +63,10 @@
       position:fixed; top:0; left:0; right:0; z-index:500;
       padding:22px 40px; display:flex; align-items:center; justify-content:space-between;
       opacity:0; animation:fadeIn 0.7s ease 0.2s forwards;
+      transition:background 0.4s ease, border-color 0.4s ease, padding 0.4s ease;
+      border-bottom:1px solid transparent;
     }
+    nav.scrolled { background:var(--bg); border-color:var(--border); padding-top:16px; padding-bottom:16px; }
     .nav-logo { font-size:13px; font-weight:400; letter-spacing:-0.01em; color:var(--text); text-decoration:none; cursor:none; }
     .nav-r { display:flex; align-items:center; gap:28px; }
     .nav-a { font-size:12.5px; font-weight:400; letter-spacing:-0.005em; color:var(--muted); text-decoration:none; transition:color 0.2s; cursor:none; }
@@ -105,9 +118,13 @@
     .case.reveal { animation:rowIn 0.75s cubic-bezier(.16,1,.3,1) forwards; }
     .case:hover { background:var(--bg-hover); }
 
-    .case-num { font-size:12px; font-weight:400; color:var(--muted); }
+    .case-num { font-size:12px; font-weight:400; color:var(--muted); overflow:hidden; position:relative; height:1.4em; display:flex; align-items:center; }
+    .num-inner,.num-arrow { display:block; transition:transform 0.4s cubic-bezier(.16,1,.3,1); line-height:1.4; }
+    .num-arrow { position:absolute; top:100%; left:0; color:var(--text); }
+    .case:hover .num-inner { transform:translateY(-130%); }
+    .case:hover .num-arrow { transform:translateY(-130%); }
     .case-title { font-size:clamp(28px,4.2vw,62px); font-weight:300; letter-spacing:-0.03em; line-height:1; transition:transform 0.45s cubic-bezier(.16,1,.3,1); }
-    .case:hover .case-title { transform:translateX(10px); }
+    .case:hover .case-title { transform:translateX(14px); }
     .case-tags { display:flex; flex-direction:column; gap:3px; text-align:right; }
     .case-tag { font-size:12px; font-weight:400; letter-spacing:-0.005em; color:var(--muted); }
     .case-year { font-size:12.5px; font-weight:400; color:var(--muted); text-align:right; }
@@ -215,7 +232,7 @@
     </div>
 
     <a class="case" href="protexxion/" data-img="./portfolio/Protexxion1.png">
-      <span class="case-num">01</span>
+      <span class="case-num"><span class="num-inner">01</span><span class="num-arrow">→</span></span>
       <span class="case-title">Protexxion</span>
       <div class="case-tags">
         <span class="case-tag">Brand Identity</span>
@@ -226,7 +243,7 @@
     </a>
 
     <a class="case" href="discodaddy/" data-img="./portfolio/Discodaddy1.png">
-      <span class="case-num">02</span>
+      <span class="case-num"><span class="num-inner">02</span><span class="num-arrow">→</span></span>
       <span class="case-title">Discodaddy</span>
       <div class="case-tags">
         <span class="case-tag">Brand Identity</span>
@@ -237,7 +254,7 @@
     </a>
 
     <a class="case" href="morpho/" data-img="./portfolio/Morpho2.png">
-      <span class="case-num">03</span>
+      <span class="case-num"><span class="num-inner">03</span><span class="num-arrow">→</span></span>
       <span class="case-title">Morpho</span>
       <div class="case-tags">
         <span class="case-tag">Art Direction</span>
@@ -248,7 +265,7 @@
     </a>
 
     <a class="case" href="solva/" data-img="./portfolio/Solva1.png">
-      <span class="case-num">04</span>
+      <span class="case-num"><span class="num-inner">04</span><span class="num-arrow">→</span></span>
       <span class="case-title">Solva</span>
       <div class="case-tags">
         <span class="case-tag">Brand Identity</span>
@@ -259,7 +276,7 @@
     </a>
 
     <a class="case" href="chrisma/" data-img="./portfolio/Chrisma_05.jpg">
-      <span class="case-num">05</span>
+      <span class="case-num"><span class="num-inner">05</span><span class="num-arrow">→</span></span>
       <span class="case-title">Chrisma</span>
       <div class="case-tags">
         <span class="case-tag">Brand Identity</span>
@@ -280,7 +297,7 @@
       <ul class="about-lines">
         <li class="about-line">A creative individual with a commercial twist.</li>
         <li class="about-line">Sets the bar high for others but always starts by raising it for himself.</li>
-        <li class="about-line">A mentor to younger individuals, eager to learn and grow.</li>
+        <li class="about-line">Always learning, always sharing — working with other creatives is where the real energy is.</li>
         <li class="about-line">A dedicated gym addict known for eating a lot of chicken.</li>
       </ul>
     </div>
@@ -339,6 +356,9 @@
   </footer>
 
   <script>
+    // page load fade-in
+    document.addEventListener('DOMContentLoaded', () => document.body.classList.add('loaded'));
+
     // theme
     const tBtn = document.getElementById('tBtn');
     const html = document.documentElement;
@@ -347,7 +367,26 @@
       const dark = html.dataset.theme === 'dark';
       html.dataset.theme = dark ? 'light' : 'dark';
       tBtn.textContent = dark ? 'Dark' : 'Light';
-      localStorage.setItem('theme', dark ? 'light' : 'dark');
+      try { localStorage.setItem('theme', dark ? 'light' : 'dark'); } catch(e) {}
+    });
+
+    // nav scroll
+    const mainNav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      mainNav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // page transitions
+    document.querySelectorAll('a[href]').forEach(a => {
+      if (a.getAttribute('target') === '_blank') return;
+      if (a.getAttribute('href').startsWith('#')) return;
+      if (a.getAttribute('href').startsWith('mailto')) return;
+      a.addEventListener('click', e => {
+        const href = a.href;
+        e.preventDefault();
+        document.body.classList.remove('loaded');
+        setTimeout(() => { location.href = href; }, 340);
+      });
     });
 
     // cursor dot
