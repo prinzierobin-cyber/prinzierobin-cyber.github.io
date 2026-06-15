@@ -81,9 +81,9 @@
     /* ══════════════════════════
        CAMPAIGN GRID
     ══════════════════════════ */
-    .camp-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border); margin:0 40px; border-bottom:1px solid var(--border); }
+    .camp-grid { display:grid; grid-template-columns:repeat(4,1fr); margin:0 40px; border-top:1px solid var(--border); border-left:1px solid var(--border); }
 
-    .camp-item { background:var(--bg); padding:28px 24px; display:flex; flex-direction:column; gap:16px; }
+    .camp-item { background:var(--bg); padding:28px 24px; display:flex; flex-direction:column; gap:16px; border-right:1px solid var(--border); border-bottom:1px solid var(--border); }
     .camp-item.is-featured { background:rgba(230,225,216,0.03); }
 
     .camp-item-top { display:flex; justify-content:space-between; align-items:baseline; }
@@ -434,7 +434,6 @@
       <a class="camp-item-blog" href="https://inspiration.ethnicraft.com/en/storage-solutions" target="_blank">→ Blog</a>
     </div>
 
-    <div class="camp-item"></div>
 
   </div><!-- /camp-grid -->
 
