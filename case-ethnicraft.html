@@ -879,7 +879,7 @@
     }, { threshold:0.04 });
     document.querySelectorAll('.img-block, .stat-cell').forEach(el => io.observe(el));
 
-    document.addEventListener('DOMContentLoaded', () => document.body.classList.add('loaded'));
+    document.body.classList.add('loaded');
 
     const progressBar = document.getElementById('progressBar');
     window.addEventListener('scroll', () => {
