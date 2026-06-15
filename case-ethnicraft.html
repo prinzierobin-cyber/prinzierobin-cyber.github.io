@@ -15,7 +15,9 @@
 
     *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
     html { scroll-behavior:smooth; }
-    body { font-family:'Suisse','Helvetica Neue',Helvetica,Arial,sans-serif; background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased; transition:background 0.45s, color 0.45s; overflow-x:hidden; cursor:none; }
+    body { font-family:'Suisse','Helvetica Neue',Helvetica,Arial,sans-serif; background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; transition:background 0.45s, color 0.45s, opacity 0.35s ease; overflow-x:hidden; cursor:none; opacity:0; }
+    body.loaded { opacity:1; }
+    .progress-bar { position:fixed; top:0; left:0; width:0%; height:1px; background:var(--text); z-index:9999; pointer-events:none; transition:background 0.45s; }
     .cursor { position:fixed; width:7px; height:7px; background:var(--text); border-radius:50%; pointer-events:none; z-index:10000; top:0; left:0; will-change:transform; transition:background 0.45s; }
 
     /* Nav */
@@ -218,6 +220,7 @@
 </head>
 <body>
 
+  <div class="progress-bar" id="progressBar"></div>
   <div class="cursor" id="cursor"></div>
 
   <nav>
@@ -875,6 +878,25 @@
       });
     }, { threshold:0.04 });
     document.querySelectorAll('.img-block, .stat-cell').forEach(el => io.observe(el));
+
+    document.addEventListener('DOMContentLoaded', () => document.body.classList.add('loaded'));
+
+    const progressBar = document.getElementById('progressBar');
+    window.addEventListener('scroll', () => {
+      progressBar.style.width = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100) + '%';
+    });
+
+    document.querySelectorAll('a[href]').forEach(a => {
+      if (a.getAttribute('href').startsWith('#')) return;
+      if (a.getAttribute('href').startsWith('mailto')) return;
+      if (a.getAttribute('target') === '_blank') return;
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const href = a.href;
+        document.body.classList.remove('loaded');
+        setTimeout(() => { location.href = href; }, 340);
+      });
+    });
   </script>
 </body>
 </html>
